@@ -1,0 +1,143 @@
+openapi: 3.2.2
+
+info:
+  description: String test API
+  version: "1.0"
+  title: Test api for Auto & General
+  contact:
+    email: trangkieu.nz@gmail.com
+paths:
+  /tasks/validateBrackets:
+    get:
+      tags:
+        - test
+      operationId: validateBrackets
+      parameters:
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BracersTestResult'
+components:
+  schemas:
+    ToDoItem:
+      type: object
+      description: "Todo item"
+      properties:
+        id:
+          type: number
+        text:
+          type: string
+        isCompleted:
+          type: boolean
+        createdAt:
+          type: string
+          description: "example: 2017-10-13T01:50:58.735Z"
+    BalanceTestResult:
+      type: object
+      description: "Balance Test Results"
+      properties:
+        input:
+          type: string
+        isBalance:
+          type: boolean
+
+    ToDoItemValidationError:
+      type: object
+      description: "Todo validation error"
+      properties:
+        details:
+          $ref: '#/components/schemas/Details'
+        name:
+          type: string
+    Details:
+      type: object
+      properties:
+        location:
+          type: string
+        param:
+          type: string
+        msg:
+          type: string
+        value:
+          type: string
+    ToDoItemNotFoundError:
+      type: object
+      description: Todo item not found error
+      properties:
+        details:
+          $ref: '#/components/schemas/Message'
+        name:
+          type: string
+    Message:
+      type: array
+      items:
+        message:
+          type: string
+    ToDoItemAddRequest:
+      type: object
+      description: Todo Item add request
+      properties:
+        text:
+          type: string
+    ToDoItemUpdateRequest:
+      type: object
+      description: Todo Item Update request
+      properties:
+        text:
+          type: string
+        isCompleted:
+          type: boolean
+    BracesTestResult:
+      type: object
+      description: Brace test result
+      properties:
+        input:
+          type: string
+        result:
+          type: boolean
+        expected:
+          type: boolean
+        isCorrect:
+          type: boolean
+    ToDoTestResult:
+      type: object
+      description: ToDo test result
+      properties:
+        input:
+          type: string
+        result:
+          $ref: '#/components/schemas/ToDoItem'
+    IntegrationTestResult:
+      type: object
+      description: Integration test results
+      properties:
+        bracers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToDoItem'
+        todo:
+            $ref: '#/components/schemas/ToDoTestResultExpected'
+        isCorrect:
+          type: boolean
+    StatusResponse:
+      type: object
+      description: Status text
+      properties:
+        status:
+          type: string
+    ToDoTestResultExpected:
+      type: object
+      description: The result expected
+      properties:
+        input:
+          type: string
+          description: "GET http://my-remote-api.com.au/api/1.0/todo/1"
+        result:
+          $ref: '#/components/schemas/ToDoTestResult'
+        expected:
+          $ref: '#/components/schemas/ToDoTestResult'
+        isCorrect:
+          type: boolean
