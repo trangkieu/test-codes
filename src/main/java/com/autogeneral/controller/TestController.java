@@ -60,7 +60,7 @@ public class TestController {
         ToDoItem toDoItem = new ToDoItem();
         toDoItem.setText(text);
         toDoItem.setCompleted(isCompleted != null ? isCompleted : false );
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddHH:mm:ssZ");
         toDoItem.setCreateAt(formatter.format(new Date()));
         try {
             testService.createOrUpdate(toDoItem);
